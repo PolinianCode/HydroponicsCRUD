@@ -5,4 +5,4 @@ from .models import HydroponicSystem
 class HydroponicSystemSerializer(serializers.ModelSerializer):
     class Meta:
         model = HydroponicSystem
-        fields = ['id', 'owner', 'name', 'created_at']
+        fields = ['id', 'owner', 'name']
