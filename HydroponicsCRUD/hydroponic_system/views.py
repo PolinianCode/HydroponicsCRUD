@@ -8,9 +8,11 @@ from django.shortcuts import get_object_or_404
 
 
 class HydroponicSystemList(generics.ListCreateAPIView):
-    queryset = HydroponicSystem.objects.all()
     serializer_class = HydroponicSystemSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return HydroponicSystem.objects.filter(owner=self.request.user)
 
     # Creating a new hydroponic system
     def perform_create(self, request):
@@ -22,9 +24,11 @@ class HydroponicSystemList(generics.ListCreateAPIView):
 
 
 class HydroponicSystemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = HydroponicSystem.objects.all()
     serializer_class = HydroponicSystemSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return HydroponicSystem.objects.filter(owner=self.request.user)
 
     # Deleting a hydroponic system
     def delete(self, request, *args, **kwargs):
