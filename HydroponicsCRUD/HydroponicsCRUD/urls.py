@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from hydroponic_system.views import HydroponicSystemList, HydroponicSystemDetail
+from measures.views import MeasureListCreate
 
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('api/user/', include('user_authentication.urls')),
     path('api/hydroponic-systems/', HydroponicSystemList.as_view()),
     path('api/hydroponic-systems/<int:pk>/', HydroponicSystemDetail.as_view()),
+    path('api/measures/', MeasureListCreate.as_view()),
 ]
