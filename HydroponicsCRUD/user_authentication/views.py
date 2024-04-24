@@ -16,14 +16,24 @@ class UserRegister(APIView):
         if password != re_password:
             return Response({'message': 'Passwords do not match'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if username and password and email:
+        if not username or not password or not email:
+            return Response({'message': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if User.objects.filter(username=username).exists():
+            return Response({'message': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if User.objects.filter(email=email).exists():
+            return Response({'message': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if len(password) > 8:
             user = User.objects.create_user(username, email, password)
             user.save()
 
             refresh = RefreshToken.for_user(user)
 
             return Response({'message': 'User created', 'refreshToken': str(refresh), 'accessToken': str(refresh.access_token)}, status=status.HTTP_201_CREATED)
-        return Response({'message': 'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'message': 'Password is too short'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserLogout(APIView):
