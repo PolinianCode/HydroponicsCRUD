@@ -54,3 +54,15 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## API documentation
+
+To check API documentation, you shoul run the server and follow this address in web browser
+
+```bash
+http://localhost:8000/swagger/
+
+or
+
+http://localhost:8000/redoc/
+```
+
