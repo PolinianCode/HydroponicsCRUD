@@ -40,7 +40,7 @@ class HydroponicSystemDetail(generics.RetrieveUpdateDestroyAPIView):
             return Response({"error": "System doesnt exist"}, status=status.HTTP_404_NOT_FOUND)
 
     # Updating a hydroponic system
-    def permorm_update(self, request, *args, **kwargs):
+    def perform_update(self, request, *args, **kwargs):
         system = self.get_object()
         user = request.user
         serializer = HydroponicSystemSerializer(

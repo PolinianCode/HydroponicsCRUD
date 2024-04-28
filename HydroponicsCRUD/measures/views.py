@@ -9,6 +9,11 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class Pagination(PageNumberPagination):
+
+    """
+    Custom pagination class
+    """
+
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 1000
@@ -20,6 +25,11 @@ class MeasureListCreate(generics.ListCreateAPIView):
     pagination_class = Pagination
 
     def get_queryset(self):
+        """
+        Get the measures for the current user
+        With additional filtering options
+        """
+
         queryset = Measures.objects.filter(
             hydroponic_system__owner=self.request.user)
         start_date = self.request.query_params.get('start_date', None)
@@ -67,6 +77,12 @@ class MeasurementList(generics.ListAPIView):
     pagination_class = Pagination
 
     def get_queryset(self):
+        """
+
+        Get all the measures with additional filtering options and sorting
+
+        """
+
         queryset = Measures.objects.all()
 
         start_date = self.request.query_params.get('start_date', None)
