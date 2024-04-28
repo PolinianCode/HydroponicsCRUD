@@ -47,3 +47,10 @@ After successfull database connection, you need to make all migrations
 python manage.py migrate
 ```
 
+
+## Run server
+
+```bash
+python manage.py runserver
+```
+
