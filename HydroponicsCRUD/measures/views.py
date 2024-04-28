@@ -55,8 +55,22 @@ class LastMeasurements(generics.ListAPIView):
 
     def get_queryset(self):
         system_id = self.kwargs['system_id']
-        queryset = Measures.objects.filter(hydroponic_system__id=system_id)
-        queryset = queryset.order_by('-time')[:10]
+        queryset = Measures.objects.filter(
+            hydroponic_system__id=system_id)
+
+        start_date = self.request.query_params.get('start_date', None)
+        end_date = self.request.query_params.get('end_date', None)
+
+        if start_date and end_date:
+            queryset = queryset.filter(time__range=[start_date, end_date])
+
+        sort_by = self.request.query_params.get('sort_by', '-time')
+
+        if sort_by:
+            queryset = queryset.order_by(sort_by)
+
+        queryset = queryset[:10]
+
         return queryset
 
 
