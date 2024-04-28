@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'measures',
     'hydroponic_system',
     'user_authentication',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
